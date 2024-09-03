@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="./img/OeM!.ico" type="image/x-icon">
+    <title>Sparlix | Movies</title>
+</head>
+<body>
+    <nav>
+        <!-- logo -->
+        <div>
+            <div  style="display:flex !important;flex-direction:row !important;align-items: center;"  onclick="homeClick()">
+                <img class="hideAble" src="./img/OeM!.png" alt="" style="width:50px;">
+                <h1 class="hideAble">Sparlix</h1>
+            </div>
+            <div class="hideAble" style="flex-grow: 1;"></div>
+            <a onclick="hamClick(this)"><i class="fa-solid fa-bars-staggered" style="font-size: 1rem;"></i></a>
+        </div>
+        <!-- menu -->
+        <div>
+            <h3 class="hideAble">MENU</h3>
+            <a class="NavLinks" onclick="homeClick()"><i class="fa-solid fa-house"></i>
+                <h2 class="hideAble">Home</h2>
+            </a>
+            <a onclick="MovieListClick()" class="NavLinks"><i class="fa-solid fa-play"></i>
+                <h2 class="hideAble">Movies</h2>
+            </a>
+            <a onclick="TVListClick()" class="NavLinks"><i class="fa-solid fa-clapperboard"></i>
+                <h2 class="hideAble">TV Shows</h2>
+            </a>
+            <a onclick="MarvelClick()" class="NavLinks"><i class="fa-brands fa-superpowers"></i>
+                <h2 class="hideAble">Marvel and DC</h2>
+            </a>
+        </div>
+        <!-- misc -->
+        <div>
+            <h3 class="hideAble">MISC</h3>
+            <a onclick="OpenLoginPopup()" class="NavLinks"><i class="fa-solid fa-user"></i>
+                <h2 class="hideAble">Login</h2>
+            </a>
+            <a class="NavLinks" id="darkTheme">
+                <i class="fa-solid fa-moon" id="darkThemeIcn"></i>
+                <h2 class="hideAble" id="darkThemetxt">Light / Dark</h2>
+            </a>
+            <a onclick="HelpClick()" class="NavLinks"><i class="fa-solid fa-circle-info"></i>
+                <h2 class="hideAble">Help Center</h2>
+            </a>
+            <a target="_blank" href="https://chat.whatsapp.com/BdDVtBsSPliATE0zJ8cQLf" class="NavLinks"><i class="fa-brands fa-whatsapp"></i>
+                <h2 class="hideAble">Community</h2>
+            </a>
+        </div>
+        <!-- my list -->
+        <div style="border:0;overflow-y: hidden;padding-top: 10px;">
+            <h3 class="hideAble" position="sticky">MY LIST</h3>
+            <div class="hideAble" id="BookMarks">
+                <!--  add numorphisms -->
+            </div>
+        </div>
+    </nav>
+    <div class="loginPopup popup">
+        <a onclick="closePopUp()"><i class="fa fa-close" style="font-size:2rem"></i></a>
+        <div id="Login">
+            <h1>Login</h1>
+            <form onsubmit="event.preventDefault(); alert('Abhi backend nhi lagaya')">
+                <input type="email" name="" id="Login-email" placeholder="Email.." autocomplete="off">
+                <input type="password" name="" id="Login-password" placeholder="Password.." autocomplete="off">
+                <a onclick="ForgetPasswordButton()">Forget Password?</a>
+                <input type="submit" value="Login" id="Login-button">
+            </form>
+            <p>Don't have an account? <a onclick="SignUpShotcutClick()"> Sign Up</a></p>
+        </div>
+        <div id="SignUp">
+            <h1>Sign Up</h1>
+            <form onsubmit="event.preventDefault(); alert('Abhi backend nhi lagaya')">
+                <input type="email" name="" id="SignUp-email" placeholder="Email.." autocomplete="off">
+                <input type="password" name="" id="SignUp-password" placeholder="Password.." autocomplete="off">
+                <input type="submit" value="Sign Up" id="SignUp-button">
+            </form>
+            <p>Already have an account? <a onclick="LoginShotcutClick()"> Login</a></p>
+        </div>
+        <div id="ForgetPassword">
+            <h1>Sign Up</h1>
+            <form onsubmit="event.preventDefault(); alert('Abhi backend nhi lagaya')">
+                <input type="email" name="" id="PasswordReset-email" placeholder="Email.." autocomplete="off">
+                <input type="submit" value="Send Email" id="ForgetPassword-button">
+            </form>
+            <a onclick="LoginShotcutClick()">Back</a>
+        </div>
+    </div>
+    <div class="comingSoon popup" style="gap: 30px;">
+        <a onclick="closePopUp()"><i class="fa fa-close" style="font-size:2rem"></i></a>
+        <h1 style="font-size:4rem">Coming Soon</h1>
+        <div><a href="https://wa.me/923001234567" target="_blank">Request for content</a></div>
+    </div>
+    <div class="iframePopup popup" style="gap: 30px;z-index: 110;background-color: #000;" >
+        <a onclick="closePopUp()"><i class="fa fa-close" style="font-size:2rem"></i></a>
+        <iframe src="" frameborder="0" style="width:100vw;height:100vh" id="content-run-iframe"></iframe>
+    </div>
+    <div class="seasonsPopup popup" style="gap: 30px;justify-content: flex-start;padding-top: 68px;">
+        <a onclick="closePopUp()"><i class="fa fa-close" style="font-size:2rem"></i></a>
+        <h2 class="name-of-TvShow" style="text-align:center;color: #fff;"></h2>
+        <div class="season-count-container"></div>
+        <div class="wrapping-card-container">
+        </div>
+    </div>
+    <main>
+        <header class="header">
+            <a onclick="hamClick(this)"><i class="fa-solid fa-bars-staggered" style="font-size: 1rem;"></i></a>
+            <form id="SearchForm" onsubmit="SearchIt(this); event.preventDefault();" >
+                <input type="search" name="" placeholder="Seach.." id="seachBarMain">
+                <a id="seachButtonMain" onclick="SearchIt(this)"><i class="fa-solid fa-magnifying-glass"></i></a>
+            </form>
+        </header>
+        <div class="container">
+            <section id="home">
+                <h1>Home</h1>
+                <div>
+                    <div class="blue-card" id="welcome-blue-card">
+                        <div>
+                            <h2> Keep track of all the TV shows and movies you want to watch.</h2>
+                            <div>
+                                <img src="./img/OeM!.png" alt="">
+                                <div>
+                                    <h4>Yes, It's all free</h4>
+                                    <p>HD Quality • CC • Watchlist</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blue-card" id="discord-blue-card">
+                        <div>
+                            <h2> If you like us share our site to your friends.</h2>
+                            <div>
+                                <h4>Join to our official groups</h4>
+                                <p>Invite Code • Freebies • Rewards</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Now playing movies</h2>
+                <div data-NowPlaying></div>
+                <h2>Popular Tv Shows</h2>
+                <div data-Popular></div>
+                <h2>Upcoming Movies</h2>
+                <div data-Upcoming></div>
+                <h2>Top Rated Tv Shows</h2>
+                <div data-Kids></div>
+                <div>
+                    <div class="blue-card" id="anouncment-blue-card">
+                        <div>
+                            <h2> If you like us share our site to your friends.</h2>
+                            <div>
+                                <h4>Join to our official groups</h4>
+                                <p>Invite Code . Freebies . Rewards</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Popular Movies</h2>
+                <div data-Horror></div>
+                <h2>On the Air</h2>
+                <div data-TopThiller></div>
+                
+            </section>
+            <section id="movie-content-screen">
+                <span class="banner-area">
+                    <img src="" alt="poster of ${movie name}">
+                    <div></div>
+                    <div class="curved-corners"></div>
+                </span>
+                <div class="name-section-of-movie">
+                    <img src="" alt="./img/placeholder.png">
+                    <div>
+                        <h1 data-Movie-title></h1>
+                        <div class="tag-section-of-movie catagories"></div>
+                        <div data-Movie-Stats style="font-size:15px"></div>
+                        <div class="button-section-of-movie"></div>
+                    </div>
+                </div>
+                <h3>Description</h3>
+                <p data-Movie-Discription></p>
+                <h3>Trailers</h3>
+                <iframe src="" frameborder="0" allowfullscreen></iframe>
+                <h3>Cast</h3>
+                <div class="rows" data-Movie-Cast></div>
+                <h3>You may also like</h3>
+                <div class="rows" data-Movie-Similar></div>
+                <h3>Recommendation</h3>
+                <div class="rows" data-Movie-Recommendation></div>
+            </section>
+            <section id="person-content-screen">
+                <div>
+                    <img src="" alt="🤠" data-Person-Image>
+                    <h1 data-Person-name style="font-size: 3rem;">Reload the Page</h1>
+                    <h1>Biography</h1>
+                    <p data-Person-details></p>
+                </div>
+                <div class="person-info">
+                </div>
+            </section>
+            <section id="Marvel-Movies">
+                <h1>Marvel and DC Movies</h1>
+                <div class="wrapping-card-container" id="marvel-movies-container">
+                </div>
+            </section>
+            <section id="Search-screen">
+                <h1 style="margin-bottom: inherit">Search results for <span id="search-keyword-span"></span>:</h1>
+                <div class="wrapping-card-container" id="search-result-section">
+                </div>
+            </section>
+            <section id="Movies-screen">
+                <h1 style="margin-bottom: inherit">Movies</h1>
+                <div class="wrapping-card-container catagories" id="movies-catagories" style="margin-bottom: inherit">
+                </div>
+                <div class="wrapping-card-container" id="movies-section-by-catagories">
+                </div>
+            </section>
+            <section id="TV-screen">
+                <h1 style="margin-bottom: inherit">TV shows</h1>
+                <div class="wrapping-card-container catagories" id="tv-catagories" style="margin-bottom: inherit"></div>
+                <div class="wrapping-card-container"  id="tv-section-by-catagories">
+                    <!-- movies -->
+                </div>
+            </section>
+            <section id="TV-content-screen">
+                <span class="banner-area">
+                    <img src="" alt="poster of ${movie name}">
+                    <div></div>
+                    <div class="curved-corners"></div>
+                </span>
+                <div class="name-section-of-movie">
+                    <img src="" alt="./img/placeholder.png">
+                    <div>
+                        <h1 data-Movie-title></h1>
+                        <div class="tag-section-of-movie"></div>
+                        <div data-Movie-Stats style="font-size:15px"></div>
+                        <div class="button-section-of-movie"></div>
+                    </div>
+                </div>
+                <h3>Description</h3>
+                <p data-Movie-Discription></p>
+                <h3>Trailers</h3>
+                <iframe src="" frameborder="0" allowfullscreen></iframe>
+                <h3>Cast</h3>
+                <div class="rows" data-Movie-Cast></div>
+                <h3>You may also like</h3>
+                <div class="rows" data-Movie-Similar></div>
+                <h3>Recommendation</h3>
+                <div class="rows" data-Movie-Recommendation></div>
+            </section>
+            <section id="Help-screen">
+                <h1 style="text-align: center;">FAQs</h1>
+                <div class="faq-section">
+                </div>
+                <h1 style="text-align: center;">Contact</h1>
+                <div class="contact-links">
+                    <div>
+                        <a href="https://github.com/AwaisOem" target="_blank">Contribute</a>
+                        <a onclick="OpenComingSoonPopup()" target="_blank">Portfolio</a>
+                        <a href="https://awaisoem.vercel.app/" target="_blank">About Developer</a>
+                        <a href="https://awaisoem.github.io/SPARK-OFFICIALS/" target="_blank">Our Team</a>
+                        <a href="">Privacy Policy</a>
+                    </div>
+                    <div class="contact-links-social">
+                        <a href="mailto:awaisoem@gmail.com" target="_blank"><i class="fa-solid fa-at"></i></a>
+                        <a href="https://wa.me/923001234567" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://github.com/AwaisOem" target="_blank"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://twitter.com/AwaisOem" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <div class="alan-btn"></div>
+    <script type="text/javascript" async src="./dataFetch.js"></script>
+    <script type="text/javascript" src="./painting.js"></script>
+    <script type="text/javascript" src="./eventListening.js"></script>
+    <script type="text/javascript" src="./script.js"></script>
+    <script type="text/javascript" src="https://studio.alan.app/web/lib/alan_lib.min.js"></script>
+    <script type="text/javascript" src="./va.js"></script>
+</body>
+</html>
